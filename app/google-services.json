@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "522317805131",
+    "firebase_url": "https://surprise-5bb98.firebaseio.com",
+    "project_id": "surprise-5bb98",
+    "storage_bucket": "surprise-5bb98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522317805131:android:03419f33b4e6c17d",
+        "android_client_info": {
+          "package_name": "com.fistandantilus.surprise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522317805131-pcj1t6l922splevh9cbaa9h5thb8kcor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fistandantilus.surprise",
+            "certificate_hash": "279CB76627B632EEDC6BB0C4944581B37490B4C3"
+          }
+        },
+        {
+          "client_id": "522317805131-b1n7fjgevvtr2a8q1hn9aprafq1fqh5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjXht9su67LeILEM_B3mzcE1ZWDozAkFI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522317805131-b1n7fjgevvtr2a8q1hn9aprafq1fqh5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
