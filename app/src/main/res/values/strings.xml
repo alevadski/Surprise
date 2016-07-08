@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Surprise!</string>
+    <string name="preference_password_key">preference_password</string>
+    <string name="preference_nickname_key">preference_nickname</string>
 </resources>

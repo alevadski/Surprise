@@ -57,8 +57,7 @@
             style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="NICKNAME"
-            android:onClick="onLoginClick" />
+            android:hint="NICKNAME" />
 
         <EditText
             android:id="@+id/password_edittext"
@@ -73,7 +72,7 @@
             style="@style/MyButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onSignUpClick"
+            android:onClick="onLoginClick"
             android:text="LOGIN" />
 
     </LinearLayout>
