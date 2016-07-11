@@ -1,4 +1,4 @@
-package com.fistandantilus.surprise;
+package com.fistandantilus.surprise.tools;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

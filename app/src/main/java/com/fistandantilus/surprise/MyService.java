@@ -45,6 +45,8 @@ public class MyService extends Service {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         String nickname = preferences.getString(getString(R.string.preference_nickname_key), null);
+        Log.d("SERVICE", "NICKNAME = " + nickname);
+
 
         DatabaseReference reference = database.getReference(nickname);
         reference.addValueEventListener(new ValueEventListener() {

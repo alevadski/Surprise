@@ -2,10 +2,14 @@
 <resources>
     <color name="color_primary">#34495e</color>
     <color name="color_primary_dark">#2c3e50</color>
-    <color name="color_accent">#c0392b</color>
+    <color name="color_accent">#FF0000</color>
 
-    <color name="button_bg">#c0392b</color>
-    <color name="button_bg_highlighted">#ca584c</color>
+    <color name="button_bg_red">#d3d9302a</color>
+    <color name="button_bg_blue">#d32a50d9</color>
+    <color name="button_bg_red_highlighted">#d9302a</color>
+    <color name="button_bg_blue_highlighted">#2a50d9</color>
     <color name="button_text_color">#f2d8d5</color>
+
+    <color name="edit_text_color">#252525</color>
 
 </resources>

@@ -8,6 +8,10 @@ public class UserData {
     private int screenHeight;
     private String wallpaper;
 
+    public UserData() {
+
+    }
+
     public UserData(String nickname, String password, int screenWidth, int screenHeight, String wallpaper, boolean isOnline) {
         this.nickname = nickname;
         this.password = password;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:icon="@drawable/ic_send"
+            android:tint="#f00"
+            android:title="Send" />
+        <item
+            android:icon="@drawable/ic_recent"
+            android:tint="#bbb"
+            android:title="Recent" />
+        <item
+            android:icon="@drawable/ic_favorite"
+            android:tint="#bbb"
+            android:title="Favorite" />
+    </group>
+</menu>
