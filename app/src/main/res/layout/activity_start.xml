@@ -3,21 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg_portrait"
+    android:background="@color/color_primary"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.StartActivity">
 
-    <ImageView
-        android:id="@+id/logo"
+
+    <TextView
+        android:id="@+id/sign_in_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_above="@+id/sign_in_nickname"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:text="@string/sign_in"
+        android:textColor="#afff"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
 
     <EditText
-        android:id="@+id/nickname_edittext"
+        android:id="@+id/sign_in_nickname"
         style="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,11 +34,11 @@
         android:hint="@string/nickname" />
 
     <EditText
-        android:id="@+id/password_edittext"
+        android:id="@+id/sing_in_password"
         style="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nickname_edittext"
+        android:layout_below="@id/sign_in_nickname"
         android:hint="@string/password"
         android:inputType="textPassword" />
 
@@ -38,7 +47,7 @@
         style="@style/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/password_edittext"
+        android:layout_below="@id/sing_in_password"
         android:background="@drawable/button_bg_red"
         android:onClick="onLoginClick"
         android:text="SIGN IN" />

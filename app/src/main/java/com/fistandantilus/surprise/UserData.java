@@ -8,26 +8,40 @@ public class UserData {
     private int screenHeight;
     private String wallpaper;
 
+    private String phoneNumber;
+
     public UserData() {
 
     }
 
-    public UserData(String nickname, String password, int screenWidth, int screenHeight, String wallpaper, boolean isOnline) {
+    public UserData(String nickname, String password, boolean isOnline, int screenWidth, int screenHeight, String wallpaper, String phoneNumber) {
         this.nickname = nickname;
         this.password = password;
-        this.screenWidth = screenWidth;
         this.isOnline = isOnline;
+        this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
         this.wallpaper = wallpaper;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public UserData(String nickname, String password, int screenWidth, int screenHeight, String wallpaper, boolean isOnline) {
+        this(nickname, password, isOnline, screenWidth, screenHeight, wallpaper, null);
     }
 
     public UserData(String nickname, String password, int screenWidth, int screenHeight) {
-        this.nickname = nickname;
-        this.password = password;
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        this.wallpaper = "none";
-        this.isOnline = false;
+        this(nickname, password, false, screenWidth, screenHeight, null, null);
+    }
+
+    public UserData(String nickname, String password, String phone) {
+        this(nickname, password, false, 0, 0, null, phone);
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getNickname() {
