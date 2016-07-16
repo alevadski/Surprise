@@ -38,4 +38,9 @@ public class StartActivity extends AppCompatActivity {
         startActivity(new Intent(this, SignUpActivity.class));
         overridePendingTransition(R.anim.transition_in_left, R.anim.transition_out_left);
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }

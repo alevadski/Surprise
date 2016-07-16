@@ -25,7 +25,9 @@
         <service android:name=".MyService" />
 
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.SignUpActivity"></activity>
+        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.PhoneVerifyActivity" />
+        <activity android:name=".ui.SignUpDoneActivity"></activity>
     </application>
 
 </manifest>

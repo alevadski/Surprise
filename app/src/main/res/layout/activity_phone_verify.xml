@@ -4,66 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_primary"
-    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.StartActivity">
-
+    tools:context="com.fistandantilus.surprise.ui.SignUpActivity">
 
     <TextView
-        android:id="@+id/sign_in_title"
+        android:id="@+id/phone_verify_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:gravity="center"
-        android:text="@string/sign_in"
+        android:text="@string/phone_number_verification"
         android:textColor="#afff"
         android:textSize="40sp"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/phone_verify_phone"
+        style="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/sign_in_nickname"
-            style="@style/MyEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nickname" />
-
-        <EditText
-            android:id="@+id/sing_in_password"
-            style="@style/MyEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-    </LinearLayout>
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:singleLine="true" />
 
     <Button
-        android:id="@+id/login_check_button"
-        style="@style/MyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sign_up_button"
-        android:background="@drawable/button_bg_red"
-        android:onClick="onLoginClick"
-        android:text="SIGN IN" />
-
-    <Button
-        android:id="@+id/sign_up_button"
+        android:id="@+id/phone_verify_confirm_button"
         style="@style/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:background="@drawable/button_bg_blue"
-        android:onClick="onSignUpClick"
-        android:text="SIGN UP" />
+        android:onClick="onVerifyClick"
+        android:text="@string/verify" />
 
 </RelativeLayout>

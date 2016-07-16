@@ -28,10 +28,7 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         Log.d("SERVICE", "ON START COMMAND");
-
-
         return START_STICKY;
     }
 
