@@ -53,7 +53,7 @@
         android:layout_above="@+id/sign_up_button"
         android:background="@drawable/button_bg_red"
         android:onClick="onLoginClick"
-        android:text="SIGN IN" />
+        android:text="@string/sign_in" />
 
     <Button
         android:id="@+id/sign_up_button"
@@ -64,6 +64,6 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:background="@drawable/button_bg_blue"
         android:onClick="onSignUpClick"
-        android:text="SIGN UP" />
+        android:text="@string/sign_up" />
 
 </RelativeLayout>

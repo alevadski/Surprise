@@ -32,6 +32,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void onLoginClick(View view) {
+        startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(R.anim.transition_in_right, R.anim.transition_out_right);
     }
 
     public void onSignUpClick(View view) {

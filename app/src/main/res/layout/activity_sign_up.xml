@@ -84,9 +84,9 @@
         android:id="@+id/sign_up_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#aa000000"
+        android:background="#68000000"
         android:clickable="true"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ProgressBar
             android:layout_width="wrap_content"

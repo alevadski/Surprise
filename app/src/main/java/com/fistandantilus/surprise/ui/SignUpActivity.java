@@ -51,11 +51,12 @@ public class SignUpActivity extends AppCompatActivity {
         passwordConfirmView = (EditText) findViewById(R.id.sign_up_password_confirm);
         loadingLayout = (FrameLayout) findViewById(R.id.sign_up_loading_layout);
 
-        loadingLayout.setVisibility(View.GONE);
+        if (loadingLayout != null) {
+            loadingLayout.setVisibility(View.GONE);
+        }
     }
 
     public void onConfirmSignUpClick(View view) {
-        loadingLayout.setVisibility(View.VISIBLE);
         getAndValidateUserInput();
     }
 
@@ -82,11 +83,17 @@ public class SignUpActivity extends AppCompatActivity {
         String password = passwordView.getText().toString();
         String passwordConfirm = passwordConfirmView.getText().toString();
 
-        if (TextUtils.isEmpty(nickname) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm)
-                || !TextUtils.equals(password, passwordConfirm)) {
-            Toast.makeText(this, "Введите корректные данные", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(nickname) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm)) {
+            Toast.makeText(this, "Fill in all the fields", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (!TextUtils.equals(password, passwordConfirm)) {
+            Toast.makeText(this, "Passwords must match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        loadingLayout.setVisibility(View.VISIBLE);
 
         final UserData userData = new UserData(nickname, password, null);
 
@@ -95,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue(UserData.class) != null) {
-                    Toast.makeText(SignUpActivity.this, "Никнейм \"" + userData.getNickname() + "\" занят. Попробуйте другой.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Nickname \"" + userData.getNickname() + "\" is taken. Try another.", Toast.LENGTH_SHORT).show();
                 } else {
                     pushUserData(userData);
                 }
@@ -103,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("SERVICE", "CANCELED!");
+
             }
         });
     }

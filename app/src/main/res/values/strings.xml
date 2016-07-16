@@ -1,23 +1,24 @@
 <resources>
     <string name="app_name">Surprise!</string>
-    <string name="password">пароль</string>
-    <string name="nickname">псевдоним</string>
-    <string name="sign_up">РЕГИСТРАЦИЯ</string>
-    <string name="password_again">пароль снова</string>
-    <string name="phone_number">номер телефона</string>
-    <string name="sign_in">ВХОД</string>
-    <string name="phone_number_verification">ПОДТВЕРЖДЕНИЕ НОМЕРА ТЕЛЕФОНА</string>
-    <string name="verify">ПОДТВЕРДИТЬ</string>
-    <string name="set_phone_number">ПОДКЛЮЧИТЬ ТЕЛЕФОН</string>
+    <string name="preference_password_key">preference_password</string>
+    <string name="preference_nickname_key">preference_nickname</string>
+    <string name="password">password</string>
+    <string name="nickname">nickname</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="password_again">password again</string>
+    <string name="phone_number">phone number</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="phone_number_verification">PHONE NUMBER VERIFICATION</string>
+    <string name="verify">VERIFY</string>
+    <string name="set_phone_number">SET PHONE NUMBER</string>
     <string name="preference_key_user_nickname">preference_key_user_nickname</string>
     <string name="preference_key_user_password">preference_key_user_password</string>
     <string name="preference_key_user_phone">preference_key_user_phone</string>
     <string name="preference_key_user_screen_width">preference_key_screen_width</string>
     <string name="preference_key_user_screen_height">preference_key_screen_height</string>
-    <string name="preference_nickname_key">preference_key_screen_height</string>
-    <string name="well_done">ПОЗДРАВЛЯЕМ!</string>
-    <string name="created_account_message">Вы успешно зарегистрированы! Войдите в приложение под своими новыми учетными данными и наслаждайтесь! ;)</string>
-    <string name="ok">ПРОДОЛЖИТЬ</string>
+    <string name="well_done">WELL DONE!</string>
+    <string name="finish">FINISH</string>
+    <string name="created_account_message">You have successfully create your account!</string>
 
     <integer name="animation_duration">700</integer>
 </resources>

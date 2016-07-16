@@ -24,10 +24,21 @@
 
         <service android:name=".MyService" />
 
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.SignUpActivity" />
-        <activity android:name=".ui.PhoneVerifyActivity" />
-        <activity android:name=".ui.SignUpDoneActivity"></activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.PhoneVerifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.SignUpDoneActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
