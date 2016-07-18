@@ -1,45 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_primary"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.fistandantilus.surprise.ui.SignUpActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/phone_verify_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center"
-        android:text="@string/phone_number_verification"
-        android:textColor="#afff"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:background="@color/color_primary"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.fistandantilus.surprise.ui.SignUpActivity">
 
-    <EditText
-        android:id="@+id/phone_verify_phone"
-        style="@style/MyEditText"
+        <TextView
+            android:id="@+id/phone_verify_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="@string/phone_number_verification"
+            android:textColor="#afff"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/phone_verify_phone"
+            style="@style/MyEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/phone_verify_confirm_button"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/button_bg_blue"
+            android:onClick="onVerifyClick"
+            android:text="@string/verify" />
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/phone_verify_loading_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:hint="@string/phone_number"
-        android:inputType="phone"
-        android:singleLine="true" />
+        android:layout_height="match_parent"
+        android:background="#68000000"
+        android:clickable="true"
+        android:visibility="gone">
 
-    <Button
-        android:id="@+id/phone_verify_confirm_button"
-        style="@style/MyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:background="@drawable/button_bg_blue"
-        android:onClick="onVerifyClick"
-        android:text="@string/verify" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
 
-</RelativeLayout>
+    </FrameLayout>
+</FrameLayout>

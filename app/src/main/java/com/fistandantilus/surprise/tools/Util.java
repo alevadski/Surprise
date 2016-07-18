@@ -34,7 +34,7 @@ public class Util {
         UserData userData = new UserData();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        userData.setNickname(preferences.getString(context.getString(R.string.preference_key_user_nickname), null));
+        userData.setEmail(preferences.getString(context.getString(R.string.preference_key_user_nickname), null));
         userData.setPassword(preferences.getString(context.getString(R.string.preference_key_user_password), null));
         userData.setPhoneNumber(preferences.getString(context.getString(R.string.preference_key_user_phone), null));
         userData.setScreenWidth(preferences.getInt(context.getString(R.string.preference_key_user_screen_width), 0));
@@ -46,7 +46,7 @@ public class Util {
     public static void pushUserDataIntoPreferences(Context context, UserData userData) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(context.getString(R.string.preference_key_user_nickname), userData.getNickname());
+        editor.putString(context.getString(R.string.preference_key_user_nickname), userData.getEmail());
         editor.putString(context.getString(R.string.preference_key_user_password), userData.getPassword());
         editor.putInt(context.getString(R.string.preference_key_user_screen_width), userData.getScreenWidth());
         editor.putInt(context.getString(R.string.preference_key_user_screen_height), userData.getScreenHeight());

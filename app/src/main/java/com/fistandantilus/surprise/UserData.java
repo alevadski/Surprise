@@ -1,7 +1,7 @@
 package com.fistandantilus.surprise;
 
 public class UserData {
-    private String nickname;
+    private String email;
     private String password;
     private boolean isOnline;
     private int screenWidth;
@@ -14,8 +14,8 @@ public class UserData {
 
     }
 
-    public UserData(String nickname, String password, boolean isOnline, int screenWidth, int screenHeight, String wallpaper, String phoneNumber) {
-        this.nickname = nickname;
+    public UserData(String email, String password, boolean isOnline, int screenWidth, int screenHeight, String wallpaper, String phoneNumber) {
+        this.email = email;
         this.password = password;
         this.isOnline = isOnline;
         this.screenWidth = screenWidth;
@@ -24,16 +24,16 @@ public class UserData {
         this.phoneNumber = phoneNumber;
     }
 
-    public UserData(String nickname, String password, int screenWidth, int screenHeight, String wallpaper, boolean isOnline) {
-        this(nickname, password, isOnline, screenWidth, screenHeight, wallpaper, null);
+    public UserData(String email, String password, int screenWidth, int screenHeight, String wallpaper, boolean isOnline) {
+        this(email, password, isOnline, screenWidth, screenHeight, wallpaper, null);
     }
 
-    public UserData(String nickname, String password, int screenWidth, int screenHeight) {
-        this(nickname, password, false, screenWidth, screenHeight, null, null);
+    public UserData(String email, String password, int screenWidth, int screenHeight) {
+        this(email, password, false, screenWidth, screenHeight, null, null);
     }
 
-    public UserData(String nickname, String password, String phone) {
-        this(nickname, password, false, 0, 0, null, phone);
+    public UserData(String email, String password, String phone) {
+        this(email, password, false, 0, 0, null, phone);
     }
 
     public String getPhoneNumber() {
@@ -44,12 +44,12 @@ public class UserData {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

@@ -31,13 +31,13 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/sign_up_nickname"
+                android:id="@+id/sign_up_email"
                 style="@style/MyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:hint="@string/nickname"
+                android:hint="@string/email"
                 android:singleLine="true" />
 
             <EditText
