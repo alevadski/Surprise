@@ -11,14 +11,22 @@
     <string name="phone_number_verification">PHONE NUMBER VERIFICATION</string>
     <string name="verify">VERIFY</string>
     <string name="set_phone_number">SET PHONE NUMBER</string>
-    <string name="preference_key_user_nickname">preference_key_user_nickname</string>
-    <string name="preference_key_user_password">preference_key_user_password</string>
-    <string name="preference_key_user_phone">preference_key_user_phone</string>
-    <string name="preference_key_user_screen_width">preference_key_screen_width</string>
-    <string name="preference_key_user_screen_height">preference_key_screen_height</string>
     <string name="well_done">WELL DONE!</string>
     <string name="finish">FINISH</string>
     <string name="created_account_message">You have successfully create your account!</string>
+    <string name="name">name</string>
+    <string name="date_of_birth">date of birth</string>
 
-    <integer name="animation_duration">400</integer>
+    <string name="preference_key_user_nickname">preference_key_user_nickname</string>
+    <string name="preference_key_user_email">preference_key_user_email</string>
+    <string name="preference_key_user_password">preference_key_user_password</string>
+    <string name="preference_key_user_screen_width">preference_key_screen_width</string>
+    <string name="preference_key_user_screen_height">preference_key_screen_height</string>
+    <string name="preference_key_user_phone">preference_key_user_phone</string>
+    <string name="preference_key_user_day_of_birth">preference_key_user_day_of_birth</string>
+    <string name="preference_key_user_month_of_birth">preference_key_user_month_of_birth</string>
+    <string name="preference_key_user_year_of_birth">preference_key_user_year_of_birth</string>
+    <string name="extra_key_user_uid">EXTRA_KEY_USER_UID</string>
+
+
 </resources>

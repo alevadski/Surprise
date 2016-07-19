@@ -34,10 +34,11 @@
             style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/sing_in_password"
+            android:id="@+id/sign_in_password"
             style="@style/MyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

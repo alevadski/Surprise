@@ -8,27 +8,33 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.fistandantilus.surprise.R;
-import com.fistandantilus.surprise.UserData;
+import com.fistandantilus.surprise.dao.UserData;
 import com.fistandantilus.surprise.tools.Const;
 import com.fistandantilus.surprise.tools.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class PhoneVerifyActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
-
     private EditText phoneView;
+
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_verify);
+
+        Bundle extras = getIntent().getExtras();
+        uid = extras.getString(getString(R.string.extra_key_user_uid));
+
+        if (uid == null) {
+            throw new IllegalStateException("UID is null");
+        }
 
         initFirebaseFeatures();
 
@@ -51,30 +57,16 @@ public class PhoneVerifyActivity extends AppCompatActivity {
     private void pushUserDataToFirebase() {
         UserData userData = Util.getUserDataPhomPreference(this);
 
-        //TODO TEMPORARY!
+        //TODO TEMPORARY! HERE MUST BE PHONE NUMBER VERIFICATION AND VALIDATION!!!
         String phoneNumber = phoneView.getText().toString();
         userData.setPhoneNumber(phoneNumber);
 
-//        DatabaseReference reference = database.getReference(Const.USERS_PATH).child(userData.getEmail());
-//        reference.setValue(userData);
-
-        createUserAccount(userData);
-    }
-
-    private void createUserAccount(UserData userData) {
-
-        firebaseAuth.createUserWithEmailAndPassword(userData.getEmail(), userData.getPassword())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            done();
-                        }
-
-                    }
-                });
-
+        database.getReference(Const.USERS_PATH).child(uid).child("phoneNumber").setValue(phoneNumber).addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                done();
+            }
+        });
     }
 
     private void done() {

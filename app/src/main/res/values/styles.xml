@@ -25,5 +25,4 @@
         <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
     </style>
 
-
 </resources>
