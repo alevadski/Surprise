@@ -105,7 +105,6 @@ public class StartActivity extends AppCompatActivity implements OnCompleteListen
             FirebaseUser user = firebaseAuth.getCurrentUser();
 
             if (user != null) {
-                Toast.makeText(StartActivity.this, "You logged as user " + user.getUid(), Toast.LENGTH_SHORT).show();
 
                 database.getReference(Const.USERS_PATH).child(user.getUid()).child("online").setValue(true);
 

@@ -5,6 +5,9 @@ public class DateOfBirth {
     private int month;
     private int year;
 
+    public DateOfBirth() {
+    }
+
     public DateOfBirth(int day, int month, int year) {
         this.day = day;
         this.month = month;

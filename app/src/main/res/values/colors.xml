@@ -3,6 +3,9 @@
     <color name="color_primary">#34495e</color>
     <color name="color_primary_dark">#2c3e50</color>
     <color name="color_accent">#FF0000</color>
+    <color name="text_color_primary">#efefee</color>
+    <color name="text_color_secondary">#afafaf</color>
+
 
     <color name="button_bg_red">#d3d9302a</color>
     <color name="button_bg_blue">#d32a50d9</color>
