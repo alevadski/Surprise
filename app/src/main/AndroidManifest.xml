@@ -3,6 +3,7 @@
     package="com.fistandantilus.surprise">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"

@@ -1,18 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/sign_in_title"
+    <LinearLayout
+        android:id="@+id/friends_fragment_empty_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:gravity="center"
-        android:text="FRIENDS"
-        android:textColor="@color/color_primary"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:visibility="gone">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/sign_up_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:text="@string/no_friends_found"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/friends_fragment_find_friends"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_bg_blue"
+            android:text="@string/find_friends" />
+
+        <Button
+            android:id="@+id/friends_fragment_invite_friends"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_bg_red"
+            android:text="@string/invite_friends" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/friends_fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/friends_fragment_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#68000000"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
+
+
+</FrameLayout>

@@ -33,7 +33,7 @@
             android:layout_centerInParent="true"
             android:hint="@string/phone_number"
             android:inputType="phone"
-            android:singleLine="true" />
+            android:singleLine="true" />zz
 
         <Button
             android:id="@+id/phone_verify_confirm_button"

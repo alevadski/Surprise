@@ -27,6 +27,13 @@
     <string name="preference_key_user_month_of_birth">preference_key_user_month_of_birth</string>
     <string name="preference_key_user_year_of_birth">preference_key_user_year_of_birth</string>
     <string name="extra_key_user_uid">EXTRA_KEY_USER_UID</string>
+    <string name="quit_confirm_message">Are you sure you want quit?</string>
+    <string name="confirm_quit_title">Confirm quit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="find_friends">FIND FRIENDS</string>
+    <string name="invite_friends">INVITE FRIENDS</string>
+    <string name="no_friends_found">No friends found</string>
 
 
 </resources>

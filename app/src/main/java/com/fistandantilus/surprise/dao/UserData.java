@@ -1,5 +1,7 @@
 package com.fistandantilus.surprise.dao;
 
+import java.util.List;
+
 public class UserData {
 
     private String name;
@@ -11,6 +13,7 @@ public class UserData {
     private String wallpaper;
     private String phoneNumber;
     private DateOfBirth dateOfBirth;
+    private List<String> friends;
 
     public UserData() {
 
@@ -63,6 +66,14 @@ public class UserData {
 
     public UserData(String email, String password, String phone) {
         this(email, password, false, 0, 0, null, phone);
+    }
+
+    public List<String> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<String> friends) {
+        this.friends = friends;
     }
 
     public DateOfBirth getDateOfBirth() {
