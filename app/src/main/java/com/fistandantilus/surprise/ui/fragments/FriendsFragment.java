@@ -201,8 +201,6 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
                 return null;
             }
 
-            //TODO перебрать все записи пользователей в базе
-            //TODO выбрать те, в которых номер телефона содержит номер из контакта
             database.getReference(Const.USERS_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -219,6 +217,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
                             if (PhoneNumberUtils.compare(phone, user.getPhoneNumber())) {
                                 Log.d("USERS", phone + " matches " + user.getPhoneNumber());
                                 userData.getFriends().add(user.getEmail());
+                                database.getReference(Const.USERS_PATH).child(userUID).setValue(userData);
                             }
                         }
 
