@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="my_edittext_padding">12dp</dimen>
+    <dimen name="navheader_height">180dp</dimen>
 
-    <integer name="animation_duration">400</integer>
+    <integer name="animation_duration">300</integer>
+
+
 </resources>

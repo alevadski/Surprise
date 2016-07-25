@@ -22,8 +22,10 @@ import android.widget.Toast;
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
 import com.fistandantilus.surprise.tools.Const;
+import com.fistandantilus.surprise.ui.adapters.FriendsListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class FriendsFragment extends Fragment implements View.OnClickListener {
@@ -69,6 +72,17 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        database.getReference(Const.USERS_PATH).addChildEventListener(childChangedListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        database.getReference(Const.USERS_PATH).removeEventListener(childChangedListener);
+    }
 
     private void initFirebaseFeatures() {
         database = FirebaseDatabase.getInstance();
@@ -97,7 +111,6 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-
 
     }
 
@@ -138,7 +151,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
                 friendsList.setVisibility(View.GONE);
                 break;
             case MODE_RESULT:
-                friendsList.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, userData.getFriends()));
+                friendsList.setAdapter(new FriendsListAdapter(getActivity(), userData.getFriends()));
 
                 loadingLayout.setVisibility(View.GONE);
                 emptyLayout.setVisibility(View.GONE);
@@ -191,15 +204,15 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... params) {
 
-            // получаем все номера из списка контактов
             final Set<String> phonesList = getAllPhonesFromContacts();
-
-            Log.d("PHONES", "Hashset count = " + phonesList.size());
 
             if (phonesList == null || phonesList.isEmpty()) {
                 setMode(MODE_EMPTY_LIST);
                 return null;
             }
+
+            database.getReference(Const.USERS_PATH).child(userUID).child("friends").setValue(null);
+            userData.getFriends().clear();
 
             database.getReference(Const.USERS_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -208,22 +221,15 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         UserData user = child.getValue(UserData.class);
 
-                        Log.d("USERS", user.getEmail() + "\t" + user.getPhoneNumber());
-
                         for (String phone : phonesList) {
 
-                            Log.d("PHONES", phone);
-
                             if (PhoneNumberUtils.compare(phone, user.getPhoneNumber())) {
-                                Log.d("USERS", phone + " matches " + user.getPhoneNumber());
-                                userData.getFriends().add(user.getEmail());
+                                userData.getFriends().add(child.getKey());
                                 database.getReference(Const.USERS_PATH).child(userUID).setValue(userData);
                             }
                         }
-
                     }
 
-                    Log.d("USERS", "Friends list count = " + userData.getFriends().size());
                     loadFriends();
                 }
 
@@ -234,9 +240,31 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
 
             return null;
         }
-
-
     }
 
+    ChildEventListener childChangedListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            loadFriends();
+        }
+
+        @Override
+        public void onChildRemoved(DataSnapshot dataSnapshot) {
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
 }

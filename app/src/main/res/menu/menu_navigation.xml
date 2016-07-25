@@ -5,6 +5,7 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_item_people"
+            android:checked="true"
             android:icon="@drawable/ic_people"
             android:tint="@color/color_primary"
             android:title="@string/friends" />

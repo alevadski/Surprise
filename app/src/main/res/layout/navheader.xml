@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="180dp"
     android:background="@drawable/navheader"
-    android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin" />
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:id="@+id/navheader_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#fff"
+        tools:text="Alex Levadski" />
+
+    <TextView
+        android:id="@+id/navheader_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navheader_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#afff"
+        tools:text="alevadski@gmail.com" />
+
+</RelativeLayout>

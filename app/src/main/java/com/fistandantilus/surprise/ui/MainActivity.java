@@ -2,6 +2,7 @@ package com.fistandantilus.surprise.ui;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -17,6 +18,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
@@ -64,19 +67,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void requestNeededPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_CONTACTS)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
             } else {
-
-                // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
                         READ_CONTACTS_PERMISSION_REQUEST_CODE);
             }
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userData = dataSnapshot.getValue(UserData.class);
-                setTitle(userData.getEmail());
+                initHeader();
             }
 
             @Override
@@ -132,6 +125,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
     }
 
+    private void initHeader() {
+        navigationView.removeHeaderView(navigationView.getHeaderView(0));
+        View headerView = navigationView.inflateHeaderView(R.layout.navheader);
+        TextView nameView = (TextView) headerView.findViewById(R.id.navheader_name);
+        TextView emailView = (TextView) headerView.findViewById(R.id.navheader_email);
+
+        nameView.setText(userData.getName());
+        emailView.setText(userData.getEmail());
+    }
+
     private void setupViewPager() {
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FriendsFragment(), "FRIENDS");
@@ -153,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int which) {
                         database.getReference(Const.USERS_PATH).child(firebaseAuth.getCurrentUser().getUid()).child("online").setValue(false);
                         firebaseAuth.signOut();
+                        startActivity(new Intent(MainActivity.this, StartActivity.class));
                         finishAffinity();
                     }
                 })
