@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-import com.fistandantilus.surprise.tools.DatePickerInteractor;
+import com.fistandantilus.surprise.tools.interactors.DatePickerInteractor;
 
 import java.util.Calendar;
 

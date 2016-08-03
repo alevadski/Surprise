@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.StartActivity"
+            android:name=".ui.activities.StartActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -26,19 +26,19 @@
         <service android:name=".MyService" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.SignUpActivity"
+            android:name=".ui.activities.SignUpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.PhoneVerifyActivity"
+            android:name=".ui.activities.PhoneVerifyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.SignUpDoneActivity"
+            android:name=".ui.activities.SignUpDoneActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -1,4 +1,4 @@
-package com.fistandantilus.surprise.ui;
+package com.fistandantilus.surprise.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,9 @@ import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.DateOfBirth;
 import com.fistandantilus.surprise.dao.UserData;
 import com.fistandantilus.surprise.tools.Const;
-import com.fistandantilus.surprise.tools.DatePickerInteractor;
+import com.fistandantilus.surprise.tools.interactors.DatePickerInteractor;
 import com.fistandantilus.surprise.tools.Util;
+import com.fistandantilus.surprise.ui.DatePickerDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;

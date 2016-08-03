@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
 import com.fistandantilus.surprise.tools.Const;
+import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
 import com.fistandantilus.surprise.ui.adapters.FriendsListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,10 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class FriendsFragment extends Fragment implements View.OnClickListener {
+public class FriendsFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private FirebaseDatabase database;
     private FirebaseAuth auth;
@@ -54,6 +54,8 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
 
     private int currentMode;
 
+    private FriendsFragmentInteractor interactor;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +71,10 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
         setMode(MODE_LOADING);
 
         initFirebaseFeatures();
+        interactor = (FriendsFragmentInteractor) getActivity();
+
+        friendsList.setOnItemClickListener(this);
+
         return view;
     }
 
@@ -194,6 +200,15 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
         return phonesList;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        if (interactor == null)
+            throw new IllegalStateException("Activity not implementing FriendsFragmentInteractor");
+        else interactor.onFriendSelected(userData.getFriends().get(position));
+
+    }
+
     class FriendsFinder extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -266,5 +281,6 @@ public class FriendsFragment extends Fragment implements View.OnClickListener {
 
         }
     };
+
 
 }

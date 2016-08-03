@@ -1,4 +1,4 @@
-package com.fistandantilus.surprise.ui;
+package com.fistandantilus.surprise.ui.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
