@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:text="alex@gmail.com" />
 
         <EditText
             android:id="@+id/sign_in_password"
@@ -43,7 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="alexalex" />
     </LinearLayout>
 
     <Button

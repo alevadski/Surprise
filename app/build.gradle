@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.fistandantilus.surprise"
@@ -11,7 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+
     }
+
 
     buildTypes {
         release {
@@ -22,6 +25,11 @@ android {
 
     dexOptions {
         javaMaxHeapSize "4g"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -35,6 +43,9 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.0.0'
     compile 'com.android.support:multidex:1.0.0'
     compile "com.android.support:design:23.4.0"
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
