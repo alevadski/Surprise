@@ -10,6 +10,8 @@ public interface MainPresenter {
 
     public void sendWallpaper(String userUID, String wallpaperUID);
 
+    public void logout();
+
     public void attachWallpaperService();
 
     public void deattachWallpaperService();

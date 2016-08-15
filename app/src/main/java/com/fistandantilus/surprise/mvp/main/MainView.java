@@ -10,4 +10,7 @@ public interface MainView {
 
     public void showSettings();
 
+    public void attachPresenter();
+
+    public void detachPresenter();
 }

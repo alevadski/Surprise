@@ -1,5 +1,7 @@
 package com.fistandantilus.surprise.mvp.main;
 
+import com.fistandantilus.surprise.mvp.model.API;
+
 public class MainPresenterImpl implements MainPresenter {
 
     private final MainView mainView;
@@ -26,6 +28,11 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public void sendWallpaper(String userUID, String wallpaperUID) {
 
+    }
+
+    @Override
+    public void logout() {
+        API.logout();
     }
 
     @Override

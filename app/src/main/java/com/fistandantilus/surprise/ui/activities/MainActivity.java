@@ -1,46 +1,170 @@
 package com.fistandantilus.surprise.ui.activities;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.fistandantilus.surprise.R;
+import com.fistandantilus.surprise.mvp.main.MainPresenter;
+import com.fistandantilus.surprise.mvp.main.MainPresenterImpl;
 import com.fistandantilus.surprise.mvp.main.MainView;
-import com.fistandantilus.surprise.mvp.model.UsersManager;
+import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
+import com.fistandantilus.surprise.ui.fragments.FriendsFragment;
+import com.fistandantilus.surprise.ui.fragments.WallpapersFragment;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+import rx.functions.Func0;
+
+public class MainActivity extends AppCompatActivity implements MainView, FriendsFragmentInteractor {
+
+    private MainPresenter presenter;
+    private FragmentManager fragmentManager;
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        UsersManager
-                .getUserDataByUid("0sXcR4NiJfUort23RlBj8Z8FJza2")
-                .doOnNext(userData -> Log.d("USER", userData.toString()))
-                .doOnError(error -> Toast.makeText(this, "Error!", Toast.LENGTH_SHORT).show())
-                .take(5)
-                .subscribe(userData -> Toast.makeText(this, "Retrieved user data for name \"" + userData.getName() + "\"", Toast.LENGTH_SHORT).show());
+        initUI();
+        showFriendsList();
+    }
+
+    private void initUI() {
+        fragmentManager = getSupportFragmentManager();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        fragmentManager.addOnBackStackChangedListener(this::onBackStackChanged);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        attachPresenter();
     }
 
     @Override
     public void showFriendsList() {
-
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_container, new FriendsFragment(), "FRAGMENT TAG")
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
     public void showWallpapersList() {
-
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.main_container, new WallpapersFragment(), "FRAGMENT TAG")
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
     public void logout() {
+        presenter.logout();
 
+        startActivity(new Intent(this, StartActivity.class));
+        finishAffinity();
     }
 
     @Override
     public void showSettings() {
+        Toast.makeText(this, "Setting not implemented yet...", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void attachPresenter() {
+        presenter = new MainPresenterImpl(this);
+    }
+
+    @Override
+    public void detachPresenter() {
+        presenter = null;
+    }
+
+    private void confirmLogout() {
+        showConfirmDialog(getString(R.string.confirm_quit_title), getString(R.string.quit_confirm_message),
+                getString(R.string.yes), getString(R.string.no), () -> {
+                    logout();
+                    return null;
+                });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        } else confirmLogout();
+    }
+
+    private void showConfirmDialog(String title, String message, String positiveCase, String negativeCase, Func0 workToDo) {
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveCase, (dialog, which) -> workToDo.call())
+                .setNegativeButton(negativeCase, null)
+                .setCancelable(true);
+
+        alertBuilder.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_main_settings:
+                showSettings();
+                break;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onFriendSelected(String friendUID) {
+        Log.d("MAIN", "onFriendSelected");
+        showWallpapersList();
+    }
+
+    private void onBackStackChanged() {
+
+        Fragment fragment = fragmentManager.findFragmentByTag("FRAGMENT TAG");
+
+        if (fragment == null) return;
+
+        if (fragment instanceof FriendsFragment) {
+            setTitle(R.string.choose_friend);
+        }
+
+        if (fragment instanceof WallpapersFragment) {
+            setTitle(R.string.choose_wallpaper);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        detachPresenter();
     }
 }

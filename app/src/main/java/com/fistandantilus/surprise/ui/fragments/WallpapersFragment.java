@@ -30,6 +30,8 @@ public class WallpapersFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle args = getArguments();
+        if (args == null) return;
+
         friendToSend = args.getString(FRIEND_TO_SEND_UID_ARG);
 
         if (friendToSend == null || friendToSend.isEmpty()) {
