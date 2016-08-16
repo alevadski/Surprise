@@ -1,8 +1,12 @@
 package com.fistandantilus.surprise.ui.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,14 +21,18 @@ import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.mvp.main.MainPresenter;
 import com.fistandantilus.surprise.mvp.main.MainPresenterImpl;
 import com.fistandantilus.surprise.mvp.main.MainView;
+import com.fistandantilus.surprise.mvp.model.API;
 import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
 import com.fistandantilus.surprise.ui.fragments.FriendsFragment;
 import com.fistandantilus.surprise.ui.fragments.WallpapersFragment;
 
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements MainView, FriendsFragmentInteractor {
 
+    private static final int PERMISSION_REQUEST_CODE = 1;
     private MainPresenter presenter;
     private FragmentManager fragmentManager;
 
@@ -52,7 +60,25 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
     protected void onStart() {
         super.onStart();
         attachPresenter();
+        checkPermissions();
+
+        testAPI();
+
     }
+
+    private void testAPI() {
+        API
+                .getAllContactsID(this)
+                .flatMap(contactID -> API.getPhoneNumbersFromContactByID(this, contactID))
+                .flatMap(API::getUserUIDByPhoneNumber)
+                .filter(userUID -> userUID != null && !userUID.isEmpty())
+                .flatMap(API::getUserDataByUid)
+                .filter(userData -> userData != null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(userData -> Log.d("FRIENDS", userData.toString()));
+    }
+
 
     @Override
     public void showFriendsList() {
@@ -166,5 +192,23 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
     protected void onStop() {
         super.onStop();
         detachPresenter();
+    }
+
+    private void checkPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Granted!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Permission denied!", Toast.LENGTH_SHORT).show();
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
