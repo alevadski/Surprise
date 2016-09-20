@@ -2,17 +2,17 @@ package com.fistandantilus.surprise.mvp.main;
 
 public interface MainPresenter {
 
-    public void loadFriends();
+    void loadFriends();
 
-    public void detectFriends();
+    void detectFriends();
 
-    public void loadWallpapers();
+    void loadWallpapers();
 
-    public void sendWallpaper(String userUID, String wallpaperUID);
+    void sendWallpaper(String userUID, String wallpaperUID);
 
-    public void logout();
+    void logout();
 
-    public void attachWallpaperService();
+    void attachWallpaperService();
 
-    public void deattachWallpaperService();
+    void deattachWallpaperService();
 }

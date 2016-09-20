@@ -4,11 +4,15 @@ import com.fistandantilus.surprise.dao.UserData;
 
 import java.util.List;
 
+import rx.Observable;
+
 public interface FriendsView {
 
-    public void showFriendsList(List<UserData> friends);
+    void showFriendsList(Observable<UserData> friends);
 
-    public void showEmptyView();
+    void showEmptyView();
 
-    public void showLoading();
+    void showLoading();
+
+    void selectFriend(String uid);
 }

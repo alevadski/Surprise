@@ -6,37 +6,38 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
+import com.fistandantilus.surprise.mvp.friends.FriendsPresenterImpl;
 import com.fistandantilus.surprise.mvp.friends.FriendsView;
 import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
+import rx.Observable;
 
 public class FriendsFragment extends Fragment implements View.OnClickListener, FriendsView {
-
-    private FirebaseDatabase database;
-    private FirebaseAuth auth;
 
     private ListView friendsList;
     private LinearLayout emptyLayout;
     private FrameLayout loadingLayout;
 
     private FriendsFragmentInteractor interactor;
+    private FriendsPresenterImpl friendsPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
+        friendsPresenter = new FriendsPresenterImpl(this);
+
         initUI(view);
 
+        friendsPresenter.loadFriends(getActivity());
         return view;
     }
 
@@ -64,17 +65,37 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
     }
 
     @Override
-    public void showFriendsList(List<UserData> friends) {
+    public void showFriendsList(Observable<UserData> friendsObservable) {
 
+        friendsObservable
+                .map(UserData::getName)
+                .toList()
+                .subscribe(friendsNames -> {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, friendsNames);
+                    friendsList.setAdapter(adapter);
+
+                    friendsList.setVisibility(View.VISIBLE);
+                    emptyLayout.setVisibility(View.GONE);
+                    loadingLayout.setVisibility(View.GONE);
+                });
     }
 
     @Override
     public void showEmptyView() {
-
+        friendsList.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoading() {
+        friendsList.setVisibility(View.GONE);
+        emptyLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void selectFriend(String uid) {
 
     }
 }

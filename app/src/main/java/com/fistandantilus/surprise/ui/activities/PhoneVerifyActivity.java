@@ -2,7 +2,6 @@ package com.fistandantilus.surprise.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -11,8 +10,6 @@ import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
 import com.fistandantilus.surprise.tools.Const;
 import com.fistandantilus.surprise.tools.Util;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,12 +58,7 @@ public class PhoneVerifyActivity extends AppCompatActivity {
         String phoneNumber = phoneView.getText().toString();
         userData.setPhoneNumber(phoneNumber);
 
-        database.getReference(Const.USERS_PATH).child(uid).child("phoneNumber").setValue(phoneNumber).addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                done();
-            }
-        });
+        database.getReference(Const.USERS_PATH).child(uid).child("phoneNumber").setValue(phoneNumber).addOnCompleteListener(this, task -> done());
     }
 
     private void done() {

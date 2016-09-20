@@ -2,15 +2,15 @@ package com.fistandantilus.surprise.mvp.main;
 
 public interface MainView {
 
-    public void showFriendsList();
+    void showFriendsList();
 
-    public void showWallpapersList();
+    void showWallpapersList();
 
-    public void logout();
+    void logout();
 
-    public void showSettings();
+    void showSettings();
 
-    public void attachPresenter();
+    void attachPresenter();
 
-    public void detachPresenter();
+    void detachPresenter();
 }

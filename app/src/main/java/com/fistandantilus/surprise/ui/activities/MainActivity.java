@@ -21,14 +21,11 @@ import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.mvp.main.MainPresenter;
 import com.fistandantilus.surprise.mvp.main.MainPresenterImpl;
 import com.fistandantilus.surprise.mvp.main.MainView;
-import com.fistandantilus.surprise.mvp.model.API;
 import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
 import com.fistandantilus.surprise.ui.fragments.FriendsFragment;
 import com.fistandantilus.surprise.ui.fragments.WallpapersFragment;
 
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func0;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements MainView, FriendsFragmentInteractor {
 
@@ -61,22 +58,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
         super.onStart();
         attachPresenter();
         checkPermissions();
-
-        testAPI();
-
-    }
-
-    private void testAPI() {
-        API
-                .getAllContactsID(this)
-                .flatMap(contactID -> API.getPhoneNumbersFromContactByID(this, contactID))
-                .flatMap(API::getUserUIDByPhoneNumber)
-                .filter(userUID -> userUID != null && !userUID.isEmpty())
-                .flatMap(API::getUserDataByUid)
-                .filter(userData -> userData != null)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(userData -> Log.d("FRIENDS", userData.toString()));
     }
 
 

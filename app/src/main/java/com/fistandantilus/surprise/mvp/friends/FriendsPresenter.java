@@ -1,10 +1,12 @@
 package com.fistandantilus.surprise.mvp.friends;
 
+import android.content.Context;
+
 public interface FriendsPresenter {
 
-    public void loadFriends();
+    void loadFriends(Context context);
 
-    public void inviteFriends();
+    void inviteFriends();
 
-    public void findFriends();
+    void findFriends();
 }
