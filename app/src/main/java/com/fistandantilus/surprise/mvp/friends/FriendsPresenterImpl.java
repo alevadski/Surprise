@@ -3,6 +3,7 @@ package com.fistandantilus.surprise.mvp.friends;
 import android.content.Context;
 
 import com.fistandantilus.surprise.mvp.model.API;
+import com.google.firebase.auth.FirebaseAuth;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -20,15 +21,16 @@ public class FriendsPresenterImpl implements FriendsPresenter {
 
         friendsView.showLoading();
 
-        friendsView.showFriendsList(API
-                .getAllContactsID(context)
-                .flatMap(contactID -> API.getPhoneNumbersFromContactByID(context, contactID))
-                .flatMap(API::getUserUIDByPhoneNumber)
-                .filter(userUID -> userUID != null && !userUID.isEmpty())
+        String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        friendsView.showFriendsList(
+                API
+                        .getUserFriendsUIDList(userUID)
                 .flatMap(API::getUserDataByUid)
-                .filter(userData -> userData != null)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()));
+                        .observeOn(AndroidSchedulers.mainThread())
+        );
+
 
     }
 

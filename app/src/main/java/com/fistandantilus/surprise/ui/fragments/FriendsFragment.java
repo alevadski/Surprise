@@ -3,6 +3,7 @@ package com.fistandantilus.surprise.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
     private LinearLayout emptyLayout;
     private FrameLayout loadingLayout;
 
+
     private FriendsFragmentInteractor interactor;
     private FriendsPresenterImpl friendsPresenter;
 
@@ -37,8 +39,14 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
 
         initUI(view);
 
-        friendsPresenter.loadFriends(getActivity());
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("FRIENDS", "OnStart");
+        friendsPresenter.loadFriends(getActivity());
     }
 
     private void initUI(View view) {
@@ -71,6 +79,12 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
                 .map(UserData::getName)
                 .toList()
                 .subscribe(friendsNames -> {
+
+                    if (friendsNames.isEmpty()) {
+                        showEmptyView();
+                        return;
+                    }
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, friendsNames);
                     friendsList.setAdapter(adapter);
 
