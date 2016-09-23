@@ -43,6 +43,7 @@
     <string name="choose_friend">Choose a friend</string>
     <string name="online">online</string>
     <string name="choose_wallpaper">Choose a wallpaper</string>
+    <string name="invite_friends_prompt">Invite friend via…</string>
 
 
 </resources>

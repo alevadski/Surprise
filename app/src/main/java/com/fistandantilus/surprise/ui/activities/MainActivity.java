@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,7 +29,7 @@ import rx.functions.Func0;
 public class MainActivity extends AppCompatActivity implements MainView, FriendsFragmentInteractor {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
-    private MainPresenter presenter;
+    private MainPresenter mainPresenter;
     private FragmentManager fragmentManager;
 
     private Toolbar toolbar;
@@ -71,17 +70,17 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
     }
 
     @Override
-    public void showWallpapersList() {
+    public void showWallpapersList(String friendUID) {
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.main_container, new WallpapersFragment(), "FRAGMENT TAG")
+                .replace(R.id.main_container, WallpapersFragment.newInstance(friendUID), "FRAGMENT TAG")
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
-    public void logout() {
-        presenter.logout();
+    public void showLogout() {
+        mainPresenter.logout();
 
         startActivity(new Intent(this, StartActivity.class));
         finishAffinity();
@@ -94,18 +93,18 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
 
     @Override
     public void attachPresenter() {
-        presenter = new MainPresenterImpl(this);
+        mainPresenter = new MainPresenterImpl(this);
     }
 
     @Override
     public void detachPresenter() {
-        presenter = null;
+        mainPresenter = null;
     }
 
     private void confirmLogout() {
         showConfirmDialog(getString(R.string.confirm_quit_title), getString(R.string.quit_confirm_message),
                 getString(R.string.yes), getString(R.string.no), () -> {
-                    logout();
+                    showLogout();
                     return null;
                 });
     }
@@ -150,8 +149,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
 
     @Override
     public void onFriendSelected(String friendUID) {
-        Log.d("MAIN", "onFriendSelected");
-        showWallpapersList();
+        showWallpapersList(friendUID);
     }
 
     private void onBackStackChanged() {

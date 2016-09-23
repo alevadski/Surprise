@@ -11,37 +11,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void loadFriends() {
-
-    }
-
-    @Override
-    public void detectFriends() {
-
-    }
-
-    @Override
-    public void loadWallpapers() {
-
-    }
-
-    @Override
-    public void sendWallpaper(String userUID, String wallpaperUID) {
-
-    }
-
-    @Override
     public void logout() {
         API.logout();
-    }
-
-    @Override
-    public void attachWallpaperService() {
-
-    }
-
-    @Override
-    public void deattachWallpaperService() {
-
     }
 }

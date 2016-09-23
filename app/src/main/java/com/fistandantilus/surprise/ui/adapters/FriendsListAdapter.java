@@ -5,25 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
-import com.fistandantilus.surprise.tools.Const;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class FriendsListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> friends;
+    private List<UserData> friends;
     private LayoutInflater inflater;
 
-    public FriendsListAdapter(Context context, List<String> friends) {
+    public FriendsListAdapter(Context context, List<UserData> friends) {
         this.context = context;
         this.friends = friends;
         this.inflater = LayoutInflater.from(context);
@@ -39,8 +35,8 @@ public class FriendsListAdapter extends BaseAdapter {
         return friends.get(position);
     }
 
-    public String getFriendUID(int position) {
-        return (String) getItem(position);
+    public UserData getFriendData(int position) {
+        return (UserData) getItem(position);
     }
 
     @Override
@@ -60,32 +56,20 @@ public class FriendsListAdapter extends BaseAdapter {
 
             holder.nameView = (TextView) view.findViewById(R.id.friends_list_item_name);
             holder.emailView = (TextView) view.findViewById(R.id.friends_list_item_email);
-            holder.onlineView = (TextView) view.findViewById(R.id.friends_list_item_online);
+            holder.onlineView = (ImageView) view.findViewById(R.id.friends_list_item_online);
 
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
 
-        String friendUID = getFriendUID(position);
+        UserData friendData = getFriendData(position);
 
         final ViewHolder finalHolder = holder;
-        FirebaseDatabase.getInstance().getReference(Const.USERS_PATH).child(friendUID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserData friendData = dataSnapshot.getValue(UserData.class);
 
-                finalHolder.nameView.setText(friendData.getName());
-                finalHolder.emailView.setText(friendData.getEmail());
-                finalHolder.onlineView.setVisibility(friendData.isOnline() ? View.VISIBLE : View.GONE);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        finalHolder.nameView.setText(friendData.getName());
+        finalHolder.emailView.setText(friendData.getEmail());
+        finalHolder.onlineView.setVisibility(friendData.isOnline() ? View.VISIBLE : View.GONE);
 
         return view;
     }
@@ -93,7 +77,7 @@ public class FriendsListAdapter extends BaseAdapter {
     class ViewHolder {
         TextView nameView;
         TextView emailView;
-        TextView onlineView;
+        ImageView onlineView;
     }
 
 }

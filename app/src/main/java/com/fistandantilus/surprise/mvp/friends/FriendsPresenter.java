@@ -6,7 +6,7 @@ public interface FriendsPresenter {
 
     void loadFriends(Context context);
 
-    void inviteFriends();
+    void inviteFriends(Context context);
 
-    void findFriends();
+    void findFriends(Context context);
 }

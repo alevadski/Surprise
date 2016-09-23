@@ -4,9 +4,9 @@ public interface MainView {
 
     void showFriendsList();
 
-    void showWallpapersList();
+    void showWallpapersList(String friendUID);
 
-    void logout();
+    void showLogout();
 
     void showSettings();
 

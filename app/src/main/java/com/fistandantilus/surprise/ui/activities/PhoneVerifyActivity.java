@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.fistandantilus.surprise.R;
 import com.fistandantilus.surprise.dao.UserData;
+import com.fistandantilus.surprise.mvp.model.API;
 import com.fistandantilus.surprise.tools.Const;
 import com.fistandantilus.surprise.tools.Util;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,17 +50,26 @@ public class PhoneVerifyActivity extends AppCompatActivity {
     }
 
     public void onVerifyClick(View view) {
-        pushUserDataToFirebase();
+        verifyPhoneNumber();
     }
 
-    private void pushUserDataToFirebase() {
+    private void verifyPhoneNumber() {
         UserData userData = Util.getUserDataPhomPreference(this);
 
         //TODO TEMPORARY! HERE MUST BE PHONE NUMBER VERIFICATION AND VALIDATION!!!
         String phoneNumber = phoneView.getText().toString();
-        userData.setPhoneNumber(phoneNumber);
 
-        database.getReference(Const.USERS_PATH).child(uid).child("phoneNumber").setValue(phoneNumber).addOnCompleteListener(this, task -> done());
+        API
+                .isPhoneNumberFree(this, phoneNumber)
+                .subscribe(valid -> {
+                    if (valid) {
+                        userData.setPhoneNumber(phoneNumber);
+                        database.getReference(Const.USERS_PATH).child(uid).child(Const.PHONE_PATH).setValue(phoneNumber).addOnCompleteListener(this, task -> done());
+                    } else {
+                        Toast.makeText(this, "This phone number is taken!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     private void done() {

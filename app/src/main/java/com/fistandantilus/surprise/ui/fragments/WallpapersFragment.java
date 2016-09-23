@@ -13,7 +13,7 @@ import com.fistandantilus.surprise.R;
 public class WallpapersFragment extends Fragment {
 
     private static final String FRIEND_TO_SEND_UID_ARG = "friend_to_send_uid_arg";
-    private String friendToSend;
+    private String friendsUID;
 
     public static WallpapersFragment newInstance(String friendUID) {
         WallpapersFragment fragment = new WallpapersFragment();
@@ -32,13 +32,13 @@ public class WallpapersFragment extends Fragment {
         Bundle args = getArguments();
         if (args == null) return;
 
-        friendToSend = args.getString(FRIEND_TO_SEND_UID_ARG);
+        friendsUID = args.getString(FRIEND_TO_SEND_UID_ARG);
 
-        if (friendToSend == null || friendToSend.isEmpty()) {
+        if (friendsUID == null || friendsUID.isEmpty()) {
             throw new IllegalStateException("Friend UID is null or empty");
         }
 
-        Toast.makeText(getActivity(), "FriendUID is " + friendToSend, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "FriendUID is " + friendsUID, Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
