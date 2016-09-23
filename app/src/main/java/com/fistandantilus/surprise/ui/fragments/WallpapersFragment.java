@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.fistandantilus.surprise.R;
 
@@ -37,8 +36,6 @@ public class WallpapersFragment extends Fragment {
         if (friendsUID == null || friendsUID.isEmpty()) {
             throw new IllegalStateException("Friend UID is null or empty");
         }
-
-        Toast.makeText(getActivity(), "FriendUID is " + friendsUID, Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
