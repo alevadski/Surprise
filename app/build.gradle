@@ -45,7 +45,7 @@ dependencies {
     compile "com.android.support:design:23.4.0"
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-
+    compile 'com.github.clans:fab:1.6.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

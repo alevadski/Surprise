@@ -47,9 +47,9 @@ public class FriendsPresenterImpl implements FriendsPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
-        Observable updateObservable = API.updateFriends(context, newFriendsUidObservable);
-
-        updateObservable
+        API.updateFriends(context, newFriendsUidObservable)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(error -> Log.d("FRIENDS", "CANNOT FIND FRIENDS! " + error))
                 .doOnCompleted(() -> loadFriends(context))
                 .subscribe();

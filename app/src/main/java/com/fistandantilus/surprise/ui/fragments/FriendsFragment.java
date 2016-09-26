@@ -2,7 +2,6 @@ package com.fistandantilus.surprise.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +20,8 @@ import com.fistandantilus.surprise.mvp.friends.FriendsView;
 import com.fistandantilus.surprise.mvp.model.API;
 import com.fistandantilus.surprise.tools.interactors.FriendsFragmentInteractor;
 import com.fistandantilus.surprise.ui.adapters.FriendsListAdapter;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import rx.Observable;
 
@@ -32,7 +33,9 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
     private FrameLayout listLayout;
     private Button findFriends;
     private Button inviteFriends;
-    private FloatingActionButton floatingActionButton;
+    private FloatingActionMenu floatingActionMenu;
+    private FloatingActionButton fabInvite;
+    private FloatingActionButton fabFind;
 
     private FriendsFragmentInteractor interactor;
     private FriendsPresenterImpl friendsPresenter;
@@ -68,11 +71,14 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
         listLayout = (FrameLayout) view.findViewById(R.id.friends_fragment_list_layout);
         findFriends = (Button) view.findViewById(R.id.friends_fragment_find_friends);
         inviteFriends = (Button) view.findViewById(R.id.friends_fragment_invite_friends);
-        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.friends_fragment_fab);
+        floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.friends_fragment_floating_action_menu);
+        fabFind = (FloatingActionButton) view.findViewById(R.id.friends_fragment_fab_find_friends);
+        fabInvite = (FloatingActionButton) view.findViewById(R.id.friends_fragment_fab_invite_friends);
 
         findFriends.setOnClickListener(this);
         inviteFriends.setOnClickListener(this);
-        floatingActionButton.setOnClickListener(this);
+        fabFind.setOnClickListener(this);
+        fabInvite.setOnClickListener(this);
 
         friendsList.setOnItemClickListener(this);
         interactor = (FriendsFragmentInteractor) getActivity();
@@ -82,18 +88,35 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.friends_fragment_find_friends:
-                showLoading();
-                friendsPresenter.findFriends(getActivity());
+                findFriends();
+                break;
+            case R.id.friends_fragment_fab_find_friends:
+                floatingActionMenu.close(false);
+                findFriends();
                 break;
             case R.id.friends_fragment_invite_friends:
-            case R.id.friends_fragment_fab:
-                friendsPresenter.inviteFriends(getActivity());
+                inviteFriends();
+                break;
+            case R.id.friends_fragment_fab_invite_friends:
+                floatingActionMenu.close(true);
+                inviteFriends();
                 break;
         }
     }
 
+    private void inviteFriends() {
+        friendsPresenter.inviteFriends(getActivity());
+    }
+
+    private void findFriends() {
+        showLoading();
+        friendsPresenter.findFriends(getActivity());
+    }
+
     @Override
     public void showFriendsList(Observable<UserData> friendsObservable) {
+
+        floatingActionMenu.close(false);
 
         friendsObservable
                 .toList()
@@ -110,6 +133,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
                     listLayout.setVisibility(View.VISIBLE);
                     emptyLayout.setVisibility(View.GONE);
                     loadingLayout.setVisibility(View.GONE);
+                    floatingActionMenu.showMenu(true);
                 });
     }
 
@@ -121,6 +145,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
         listLayout.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
+        floatingActionMenu.hideMenu(true);
     }
 
     @Override
@@ -131,11 +156,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener, F
         listLayout.setVisibility(View.GONE);
         emptyLayout.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void selectFriend(String uid) {
-
+        floatingActionMenu.hideMenu(true);
     }
 
     @Override

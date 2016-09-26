@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -55,15 +55,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/friends_fragment_fab"
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/friends_fragment_floating_action_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:src="@drawable/ic_add"
-            app:layout_anchorGravity="bottom|right|end" />
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            fab:menu_colorNormal="@color/button_bg_red"
+            fab:menu_colorPressed="@color/button_bg_red_highlighted"
+            fab:menu_colorRipple="@color/button_bg_red_highlighted"
+            fab:menu_fab_hide_animation="@anim/fab_slide_out_to_right"
+            fab:menu_fab_show_animation="@anim/fab_slide_in_from_right"
+            fab:menu_icon="@drawable/ic_add"
+            fab:menu_openDirection="up">
 
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/friends_fragment_fab_find_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search"
+                fab:fab_colorNormal="@color/button_bg_blue"
+                fab:fab_colorPressed="@color/button_bg_blue_highlighted" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/friends_fragment_fab_invite_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share"
+                fab:fab_colorNormal="@color/button_bg_blue"
+                fab:fab_colorPressed="@color/button_bg_blue_highlighted" />
+
+        </com.github.clans.fab.FloatingActionMenu>
     </FrameLayout>
 
     <FrameLayout
@@ -81,5 +105,6 @@
             android:indeterminate="true" />
 
     </FrameLayout>
+
 
 </RelativeLayout>

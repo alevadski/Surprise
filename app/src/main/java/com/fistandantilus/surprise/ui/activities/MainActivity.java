@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
     public void onBackPressed() {
         if (fragmentManager.getBackStackEntryCount() > 1) {
             super.onBackPressed();
-        } else confirmLogout();
+        } else {
+            confirmLogout();
+        }
     }
 
     private void showConfirmDialog(String title, String message, String positiveCase, String negativeCase, Func0 workToDo) {

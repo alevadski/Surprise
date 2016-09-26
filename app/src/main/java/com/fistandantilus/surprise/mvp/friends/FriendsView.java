@@ -2,8 +2,6 @@ package com.fistandantilus.surprise.mvp.friends;
 
 import com.fistandantilus.surprise.dao.UserData;
 
-import java.util.List;
-
 import rx.Observable;
 
 public interface FriendsView {
@@ -14,5 +12,4 @@ public interface FriendsView {
 
     void showLoading();
 
-    void selectFriend(String uid);
 }
