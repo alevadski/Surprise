@@ -4,20 +4,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/wallpapers_fragment_category_spinner"
-        style="@style/CategorySpinner"
+    <Button
+        android:id="@+id/wallpapers_fragment_category_button"
+        style="@style/CategoryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin" />
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/category"
+        android:textAllCaps="true" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wallpapers_fragment_recycler"
+    <FrameLayout
+        android:id="@+id/wallpapers_fragment_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/wallpapers_fragment_category_spinner"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/wallpapers_fragment_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/wallpapers_fragment_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/no_wallpapers_found"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/wallpapers_fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/wallpapers_fragment_category_button"
         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
     <com.github.clans.fab.FloatingActionMenu

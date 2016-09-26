@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.fistandantilus.surprise.R;
+import com.fistandantilus.surprise.WallpaperChangerService;
 import com.fistandantilus.surprise.mvp.main.MainPresenter;
 import com.fistandantilus.surprise.mvp.main.MainPresenterImpl;
 import com.fistandantilus.surprise.mvp.main.MainView;
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements MainView, Friends
         super.onStart();
         attachPresenter();
         checkPermissions();
+        startService();
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, WallpaperChangerService.class);
+        startService(intent);
     }
 
 

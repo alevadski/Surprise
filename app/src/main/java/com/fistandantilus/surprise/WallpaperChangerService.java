@@ -4,11 +4,9 @@ import android.app.Service;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Display;
@@ -16,13 +14,15 @@ import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
 import com.fistandantilus.surprise.dao.UserData;
+import com.fistandantilus.surprise.tools.Const;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MyService extends Service {
+public class WallpaperChangerService extends Service {
 
     private String currentLink;
     private UserData userData;
@@ -39,14 +39,10 @@ public class MyService extends Service {
 
         Log.d("SERVICE", "SERVICE STARTED!");
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String userUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        String nickname = preferences.getString(getString(R.string.preference_nickname_key), null);
-        Log.d("SERVICE", "NICKNAME = " + nickname);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Const.USERS_PATH).child(userUID);
 
-
-        DatabaseReference reference = database.getReference(nickname);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

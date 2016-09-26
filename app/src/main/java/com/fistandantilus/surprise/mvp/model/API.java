@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 
 import com.fistandantilus.surprise.dao.UserData;
+import com.fistandantilus.surprise.dao.Wallpaper;
 import com.fistandantilus.surprise.tools.Const;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -181,6 +182,61 @@ public class API {
             });
     }
 
+    public static Observable<String> getWallpapersCategories(Context context) {
+
+        return Observable.create(subscriber -> {
+
+                    FirebaseDatabase.getInstance().getReference(Const.WALLPAPERS_PATH).child(Const.CATEGORIES_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                                String categoryName = child.getKey();
+                                subscriber.onNext(categoryName);
+                            }
+
+                            subscriber.onCompleted();
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            subscriber.onError(new Throwable(databaseError.getMessage()));
+                        }
+                    });
+
+
+                }
+
+        );
+    }
+
+    public static Observable<Wallpaper> getWallpapersByCategory(Context context, String category) {
+
+        return Observable.create(subscriber -> {
+
+            FirebaseDatabase.getInstance().getReference(Const.WALLPAPERS_PATH).child(Const.CATEGORIES_PATH).child(category).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        Wallpaper wallpaper = child.getValue(Wallpaper.class);
+                        subscriber.onNext(wallpaper);
+                    }
+                    subscriber.onCompleted();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    subscriber.onError(new Throwable(databaseError.getMessage()));
+                }
+            });
+
+        });
+
+    }
+
+
     public static Observable updateFriends(Context context, Observable<String> newFriendsUIDs) {
 
         return Observable.create(subscriber -> {
@@ -201,6 +257,16 @@ public class API {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(friendsReference::setValue);
         });
+    }
+
+    public static Observable setWallpaper(Context context, String link, String userUID) {
+
+        return Observable.create(subscriber -> {
+
+            FirebaseDatabase.getInstance().getReference(Const.USERS_PATH).child(userUID).child(Const.WALLPAPER_PATH).setValue(link);
+            subscriber.onCompleted();
+        });
+
     }
 
     public static Observable<Boolean> isPhoneNumberFree(Context context, String phoneNumber) {

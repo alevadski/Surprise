@@ -44,6 +44,9 @@
     <string name="online">online</string>
     <string name="choose_wallpaper">Choose a wallpaper</string>
     <string name="invite_friends_prompt">Invite friend via…</string>
+    <string name="no_wallpapers_found">No wallpapers found</string>
+    <string name="category">Category</string>
+    <string name="choose_category">Choose category</string>
 
 
 </resources>
